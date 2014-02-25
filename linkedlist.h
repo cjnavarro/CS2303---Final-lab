@@ -1,6 +1,6 @@
 //
-//  linkedlist.h
-//  
+//  File: linkedlist.h
+//  -------------------- 
 //
 //  Created by Hoang Minh Ngo on 2/21/14.
 //
