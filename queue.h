@@ -10,7 +10,6 @@
 #define _queue_h
 
 #include <iostream>
-#include <string>
 
 /* A single node's single internal structure representation */
 template <typename ValueType>
@@ -27,7 +26,7 @@ struct Node {
 template <typename ValueType>
 class Queue {
 public:
-
+    
     /*
      * Constructor: Queue
      * ------------------
@@ -76,7 +75,7 @@ public:
      */
     
     void enqueue(ValueType value);
-     
+    
     /*
      * Method: dequeue
      * -----------------
@@ -84,19 +83,19 @@ public:
      */
     
     ValueType dequeue();
-
-/* Private section */
+    
+    /* Private section */
 private:
     Node<ValueType>* frontNodePtr;
     Node<ValueType>* backNodePtr;
-    int size;
+    int count;
 };
 
 template <typename ValueType>
 Queue<ValueType>::Queue() {
     frontNodePtr = NULL;
     backNodePtr = NULL;
-    size = 0;
+    count = 0;
 }
 
 template <typename ValueType>
@@ -106,53 +105,50 @@ Queue<ValueType>::~Queue() {
 
 template <typename ValueType>
 int Queue<ValueType>::size() const {
-    return size;
+    return count;
 }
 
 template <typename ValueType>
-bool isEmpty() const {
-    return size == 0;
+bool Queue<ValueType>::isEmpty() const {
+    return count == 0;
 }
 
 template <typename ValueType>
-void clear() {
-    while (isEmpty) {
+void Queue<ValueType>::clear() {
+    while (!isEmpty()) {
         dequeue();
     }
-    size = 0;
+    count = 0;
 }
 
 template <typename ValueType>
-void enqueue(ValueType value) {
+void Queue<ValueType>::enqueue(ValueType value) {
     if (frontNodePtr == NULL) {
-        frontNodePtr = new Node(value, temp);
+        frontNodePtr = new Node<ValueType>(value, NULL);
+	backNodePtr = frontNodePtr;
     } else {
-        backNodePtr->nextNodePtr = new Node(value, NULL);
-        backNodePtr = backNodePtr->nextNodePtr;
+        backNodePtr->nextNodePtr = new Node<ValueType>(value, NULL);
+	backNodePtr = backNodePtr->nextNodePtr; 
     }
-    
-    size++;
+
+    count++;
 }
 
 template <typename ValueType>
-ValueType dequeue() {
-    if (frontNodePtr) {
-        Node* temp = frontNodePtr;
-        ValueType value;
+ValueType Queue<ValueType>::dequeue() {
+   if (frontNodePtr == NULL) throw "dequeue: Attempting to dequeue an empty queue.";
+    Node<ValueType>* temp = frontNodePtr;
+    ValueType value = frontNodePtr->data;
     
-        frontNodePtr = frontNodePtr->nextNodePtr;
+    frontNodePtr = frontNodePtr->nextNodePtr;
         
-        if (frontNodePtr == NULL) {
-            backNodePtr = NULL;
-        }
-    
-        delete temp;
-        size--;
-    
-        return value;
-    } else {
-        throw "dequeue: Attempting to dequeue an empty queue.";
+    if (frontNodePtr == NULL) {
+        backNodePtr = NULL;
     }
+        
+    delete temp;
+    count--;
+    return value;
 }
 
 #endif
