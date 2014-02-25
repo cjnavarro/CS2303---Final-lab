@@ -118,7 +118,6 @@ void Queue<ValueType>::clear() {
     while (!isEmpty()) {
         dequeue();
     }
-    count = 0;
 }
 
 template <typename ValueType>
