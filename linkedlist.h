@@ -45,6 +45,11 @@ public:
     void add(ValueType value);
     
     /*
+     * Appends the given value to the end of the list in a specific order
+     */
+    void addInOrder(ValueType value); 
+     
+    /*
      * Removes all elements from the list
      */
     void clear();
@@ -117,6 +122,21 @@ void LinkedList<ValueType>::add(ValueType value) {
         currentPtr->nextNodePtr = new ListNode<ValueType>(value, NULL);
     }
 }
+
+template<typename ValueType>
+void LinkedList<ValueType>::addInOrder(ValueType value){
+    if (frontNodePtr == NULL) {
+        frontNodePtr = new ListNode<ValueType>(value, NULL);
+    } else {
+        ListNode<ValueType>* currentPtr = frontNodePtr;
+        while(currentPtr->nextNodePtr && currentPtr->data < value) {
+            currentPtr = currentPtr->nextNodePtr;
+        }
+        currentPtr->nextNodePtr = new ListNode<ValueType>(value, NULL);
+       }   
+}
+
+
 
 template <typename ValueType>
 void LinkedList<ValueType>::clear() {
