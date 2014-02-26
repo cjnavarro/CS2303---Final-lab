@@ -13,13 +13,33 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
-    Manet newManetSimulation;
+    //Manet newManetSimulation;
+    LinkedList<Event> events;
     
-    string ans;
+    //string ans;
     int arrivalTime;
     int source;
+    int counter = 0;
     
-    while (true) {
+    for(int i = 0; i<200;i++){
+        
+        cout << "Enter the data as : Sender(1 or 2), Arrival Time"<< endl;
+        cin >> source >> arrivalTime;
+        
+        Event newEvent(source, arrivalTime);
+        
+        events.addInOrder(newEvent);
+    }
+    
+    while(true)
+        
+    
+    
+    
+    
+    
+    
+   /* while (true) {
         cout << "Add new event?: " << endl;
         getline(cin, ans);
         if (ans == " ") break;
@@ -40,7 +60,7 @@ int main(int argc, const char * argv[])
         
         Event final = newManetSimulation.getCompletedEvent();
         cout << final.toString() << endl;
-    }
+    }*/
     
     return 0;
 }
